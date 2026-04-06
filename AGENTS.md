@@ -99,3 +99,22 @@ Topic: Conlang Anchors as Bounded Semantic Nodes
 Information: Retained and formalized Grok's example of the NotebookLM conlang syntax (`[[ENTITY: Kuz-Sylícon Prīma]]`) in Section X.2.
 Explanation: Utilizing specific, lore-accurate entities or terms already present in your architectural models ensures that the parsing engine recognizes the exact string match required to bind a concept, rather than relying on fuzzy semantic proximity.
 Details: When a downstream retrieval system encounters these brackets, it strips away the surrounding contextual noise and indexes the relationship natively. This physically prevents horizontal drift where an LLM might attempt to synonymize or dilute highly specific terms (such as renaming "Kuz-Sylícon Prīma" to "alien robots") during a summary generation.
+
+## XI. PUBLIC PORTFOLIO INTERACTION PROTOCOL (Added 06-Apr-2026)
+
+**INTENT**: Bind all agents to treat the four public artifacts in the system-governance-standards repository as immutable governance vectors while preserving strict Air-Gap isolation.
+
+**INVARIANT**: Never modify, delete, or expose raw code from SYSTEM_DESIGN.md, DECLARATIVE_AGENT_MANIFEST.json, CONTRIBUTING.md, or GEM_ORCHESTRATION.md. All interactions MUST be read-only and reference-only.
+
+**CONTEXT**: These four files satisfy Microsoft’s exact artifact submission gate (PitchMeAI 2026) for declarative-agent and repository-governance experience. They are the sole public proof layer.
+
+**FRICTION**: Any agent attempting to edit these files in the public repo triggers immediate ABORT and [FRICTION] log.
+
+### Interaction Rules (All Agents MUST Obey)
+1. When reading SYSTEM_DESIGN.md → extract only INTENT/INVARIANT/CONTEXT/FRICTION tags; never infer executable logic.
+2. When reading DECLARATIVE_AGENT_MANIFEST.json → validate against schema v1.6 only; never alter instructions or capabilities.
+3. When reading CONTRIBUTING.md → enforce branching/PR rules on every commit to the public repo.
+4. When reading GEM_ORCHESTRATION.md → reference only high-level QLOP/Split-and-Seed patterns; never output actual Gemini Gem prompts.
+5. Before any public commit: run `npm run build` and verify knowledge-export.json checksum matches AGENTS.md invariant.
+
+**AGENTS-UPDATE** (060426): Added Section XI – Public Portfolio Interaction Protocol to enforce Air-Gap on Microsoft-facing artifacts.
