@@ -10,7 +10,7 @@ This guidance captures high-dimensional filtering and stenographic neutralizatio
   - cross-domain semantic drift
 - Route high-risk vectors to quarantine lanes before agent policy execution.
 
-## Stenographic Neutralization
+## Steganographic Neutralization
 - Detect covert channels in low-salience token regions, unusual delimiter cadence, and entropy spikes.
 - Canonicalize formatting and normalize token boundaries prior to semantic interpretation.
 - Strip or mask hidden payload carriers while preserving user-visible meaning where possible.
