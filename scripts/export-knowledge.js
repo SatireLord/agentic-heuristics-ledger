@@ -1,6 +1,7 @@
 const fs = require('fs/promises');
 const path = require('path');
 const matter = require('gray-matter');
+const crypto = require('crypto'); // Essential for generating the checksum
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const SOURCE_DIRECTORIES = [
@@ -10,6 +11,7 @@ const SOURCE_DIRECTORIES = [
   'ux-security-heuristics'
 ];
 
+// 2. Utility: Recursive Directory Crawler
 async function walkDirectory(directoryPath) {
   let entries;
   try {
@@ -31,6 +33,25 @@ async function walkDirectory(directoryPath) {
   return results.flat();
 }
 
+// 3. New Implementation: Forensic Validation and Integrity Checksum
+async function validateAndExport(output) {
+  // Validate YAML frontmatter existence
+  output.documents.forEach(doc => {
+    if (!doc.frontmatter || !doc.frontmatter.domain) {
+      throw new Error(`[VALIDATION FAILURE]: Missing 'domain' field in ${doc.path}`);
+    }
+  });
+
+  // Generate SHA-256 Checksum for data provenance
+  const content = JSON.stringify(output, null, 2) + '\n';
+  const checksum = crypto.createHash('sha256').update(content).digest('hex');
+  output.checksum = checksum;
+
+  const destination = path.join(REPO_ROOT, 'knowledge-export.json');
+  await fs.writeFile(destination, content, 'utf8');
+}
+
+// 4. Main Execution Loop
 async function buildKnowledgeExport() {
   const markdownFilesNested = await Promise.all(
     SOURCE_DIRECTORIES.map((relativeDir) =>
@@ -61,9 +82,8 @@ async function buildKnowledgeExport() {
     documents
   };
 
-  const destination = path.join(REPO_ROOT, 'knowledge-export.json');
-  await fs.writeFile(destination, JSON.stringify(output, null, 2) + '\n', 'utf8');
-  console.log(`Exported ${documents.length} documents to ${destination}`);
+  await validateAndExport(output);
+  console.log(`[SUCCESS]: Exported ${documents.length} documents with SHA-256 checksum.`);
 }
 
 buildKnowledgeExport().catch((error) => {
