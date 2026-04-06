@@ -1,23 +1,26 @@
-# Ethical Design Hacker Heuristics
+---
+domain: ux-security
+status: active
+source: grok-4.20-expert
+---
 
-This document outlines transparent extraction and cryptographic anchoring patterns aligned to `AdversarialGuardian.cs` and `CipherService.cs` style controls.
+# Security UX Heuristics
+
+Patterns from `AdversarialGuardian.cs` and `CipherService.cs`:
 
 ## Transparent Extraction
-- Security extraction steps must be visible, explainable, and bounded by declared policy.
-- Label each extracted artifact with source span, extraction rationale, and confidence.
-- Prevent opaque hidden-rule transformations that users and auditors cannot inspect.
+UI patterns that explicitly visualize the "Guardian" intervention when an agent attempts to access restricted memory sectors.
 
 ## Cryptographic Anchoring
-- Anchor critical security decisions to signed event records.
-- Use hash chains to bind extraction outputs, policy context, and final action decisions.
-- Verify anchor integrity before replay, rollback, or incident forensics.
+Ensuring every declarative instruction is signed via `CipherService` to verify the authenticity of the logic manifest.
 
-## Governance Pattern
-- Pair guardian decision engines with cryptographic services for tamper-evident trails.
-- Separate duties: policy adjudication, cryptographic sealing, and audit retrieval.
-- Require deterministic serialization before signing to avoid signature drift.
-
-## Ethical Constraints
-- Favor reversible neutralization over destructive redaction when safe.
-- Minimize over-collection during extraction; collect only policy-relevant artifacts.
-- Escalate uncertain adversarial findings instead of silently suppressing user intent.
+```javascript
+const generateManifest = (state, policyId) => {
+  const hash = crypto.createHash('sha256').update(JSON.stringify(state)).digest('hex'); // [3]
+  return {
+    preStateHash: hash,
+    policyId: policyId,
+    timestamp: Date.now() // [4]
+  };
+};
+```

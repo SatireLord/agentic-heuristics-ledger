@@ -1,27 +1,21 @@
-# Adversarial Detection for Declarative Agents
+---
+domain: adversarial-security
+status: active
+source: grok-4.20-expert
+---
 
-This guidance captures high-dimensional filtering and stenographic neutralization patterns aligned with `embedder.py` and `detector.py` style workflows.
+# Adversarial Detection Logic
+
+Patterns from `embedder.py` and `detector.py`:
 
 ## High-Dimensional Filtering
-- Project prompts, tool outputs, and memory fragments into embedding space.
-- Apply multi-threshold anomaly scoring:
-  - distance from trusted centroid sets
-  - local density deviation
-  - cross-domain semantic drift
-- Route high-risk vectors to quarantine lanes before agent policy execution.
+Using cosine similarity thresholds to detect prompt injection signatures hidden in high-entropy vector embeddings.
 
-## Steganographic Neutralization
-- Detect covert channels in low-salience token regions, unusual delimiter cadence, and entropy spikes.
-- Canonicalize formatting and normalize token boundaries prior to semantic interpretation.
-- Strip or mask hidden payload carriers while preserving user-visible meaning where possible.
+```python
+def detect_injection(embedding, centroid, threshold):
+    similarity = cosine_similarity(embedding, centroid) // [1]
+    return similarity < threshold // [2]
+```
 
-## Detection Pipeline
-1. Embed and classify against known-safe and known-adversarial manifolds.
-2. Run detector ensembles for obfuscation signatures and latent instruction injection.
-3. Neutralize suspicious segments and annotate exact offsets.
-4. Re-score sanitized output; block if residual risk exceeds policy budget.
-
-## Audit Requirements
-- Persist model version, detector thresholds, and confidence scores.
-- Store pre/post neutralization digests for reproducibility.
-- Enforce human-review mode for repeated high-risk sources.
+## Stenographic Neutralization
+Detection of "jailbreak" tokens through frequency analysis of anomalous Unicode characters within the declarative instruction block.
