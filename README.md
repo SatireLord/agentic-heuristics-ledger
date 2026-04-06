@@ -3,6 +3,11 @@ domain: agentic-heuristics-ledger
 status: active
 source: README.md
 ---
+---
+domain: agentic-heuristics-ledger
+status: active
+source: README.md
+---
 # Agentic Heuristics Ledger
 
 [![Export Knowledge Graph](https://github.com/SatireLord/agentic-heuristics-ledger/actions/workflows/export.yml/badge.svg)](https://github.com/SatireLord/agentic-heuristics-ledger/actions/workflows/export.yml) // [1]

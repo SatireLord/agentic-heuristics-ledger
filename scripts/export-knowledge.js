@@ -16,7 +16,7 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 // [CONTEXT]: Child directories containing domain-specific markdown artifacts.
 const SOURCE_DIRECTORIES = ['research', 'corpus-engineering', 'declarative-agents', 'ux-security-heuristics'];
 // [AGENTS-UPDATE] (060426): Added ROOT_LEVEL_FILES to capture AGENTS.md master ledger. // [1]
-const ROOT_LEVEL_FILES = ['AGENTS.md', 'README.md'];
+const ROOT_LEVEL_FILES = ['AGENTS.md', 'README.md', 'SYSTEM_DESIGN.md', 'GEM_ORCHESTRATION.md', 'CONTRIBUTING.md'];
 const DESTINATION = path.join(REPO_ROOT, 'knowledge-export.json');
 
 async function walkDirectory(directoryPath) {
