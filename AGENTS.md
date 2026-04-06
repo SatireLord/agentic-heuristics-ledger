@@ -1,3 +1,8 @@
+---
+domain: agentic-heuristics-ledger
+status: binding
+source: AGENTS.md
+---
 # Universal AI Agent Operating Manual & System Constraints: Agentic Heuristics Ledger
 
 **STATUS:** BINDING / MANDATORY  
@@ -97,9 +102,6 @@ Production code must remain convergent. All speculative thinking is quarantined.
 
 Topic: Conlang Anchors as Bounded Semantic Nodes
 Information: Retained and formalized Grok's example of the NotebookLM conlang syntax (`[[ENTITY: Kuz-Sylícon Prīma]]`) in Section X.2.
-Explanation: Utilizing specific, lore-accurate entities or terms already present in your architectural models ensures that the parsing engine recognizes the exact string match required to bind a concept, rather than relying on fuzzy semantic proximity.
-Details: When a downstream retrieval system encounters these brackets, it strips away the surrounding contextual noise and indexes the relationship natively. This physically prevents horizontal drift where an LLM might attempt to synonymize or dilute highly specific terms (such as renaming "Kuz-Sylícon Prīma" to "alien robots") during a summary generation.
-
 ## XI. PUBLIC PORTFOLIO INTERACTION PROTOCOL (Added 06-Apr-2026)
 
 **INTENT**: Bind all agents to treat the four public artifacts in the system-governance-standards repository as immutable governance vectors while preserving strict Air-Gap isolation.
